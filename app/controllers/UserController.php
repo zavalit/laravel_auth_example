@@ -1,9 +1,7 @@
 <?php 
 
-class TestAppController extends BaseController
+class UserController extends BaseController
 {
-
-  protected $layout = 'testApp';
 
   public function __construct()
   {
@@ -49,17 +47,38 @@ class TestAppController extends BaseController
 
   public function loginUser()
   {
-      return Redirect::action('TestAppController@showHomeScreen');
+    $validator = Validator::make(Input::all(), array(
+      'email'=>'required|email',
+      'password'=>'required',
+    ));
+
+      if($validator->passes()){
+
+        if(Auth::attempt(
+          array('email'=>Input::get('email'), 
+                'password'=>Input::get('password')))
+        ) {
+                
+        return Redirect::to('');
+                
+        }
+
+        return Redirect::to('login')->with('message', 'Your username/password combination was incorrect');
+       
+      
+      }else{
+         
+       return Redirect::to('login')->withErrors($validator);
+         
+      }
+
+
   }
 
-  public function makeSearch()
+  public function logoutUser()
   {
-      $results = array();
-      return Redirect::to('results')->with($results); 
+      Auth::logout();
+      return Redirect::to('login')->with('message', 'Your are successfuly logged out');
   }
 
-  public function showResultsScreen($results = array())
-  {
-      return View::make('resultsScreen')->with(array('results'=>$results));
-  }
 }

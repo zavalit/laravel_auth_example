@@ -1,12 +1,13 @@
 <?php
 
-Route::get('/', 'TestAppController@showHomeScreen');
+Route::get('/', 'UserController@showHomeScreen');
 
-Route::get('/register', 'TestAppController@showRegisterScreen');
-Route::post('/register_user', 'TestAppController@registerUser');
+Route::get('/register', 'UserController@showRegisterScreen');
+Route::post('/register_user', 'UserController@registerUser');
 
-Route::get('/login', 'TestAppController@showLoginScreen');
-Route::post('/login_user', 'TestAppController@loginUser');
+Route::get('/login', 'UserController@showLoginScreen');
+Route::post('/login_user', 'UserController@loginUser');
+Route::get('/logout', 'UserController@logoutUser');
 
-Route::post('/make_search', 'TestAppController@makeSearch');
-Route::get('/results', 'TestAppController@showResultsScreen');
+Route::post('/make_search', 'SearchController@makeSearch');
+Route::get('/results', 'SearchController@showResultsScreen');
