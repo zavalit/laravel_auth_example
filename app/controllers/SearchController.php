@@ -8,18 +8,23 @@ class SearchController extends BaseController
      if(!Auth::check()){
          return Redirect::to('login')->with('message', 'You should be logged in to be able to search');
      }
-
+     // search routine
      $stringToSearch = Input::get('string_to_search');
-   
      $searcher = new Searcher($stringToSearch);
-     $results = $searcher->getResults();
-   
-     return Redirect::to('results')->withResults($results); 
+     $users = $searcher->findUsers();
+     Session::put('users', $users);
+     return Redirect::route('search_results'); 
   }
 
-  public function showResultsScreen($results = array())
+  public function showResultsScreen()
   {
-     return View::make('resultsScreen')->with(array('results'=>$results));
+    $users = array();
+    if(Session::has('users')){
+      $users = Session::get('users');
+      Session::forget('users');
+    } 
+    
+    return View::make('resultsScreen')->with('results', $users);
   }
 
 }

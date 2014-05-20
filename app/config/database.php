@@ -5,7 +5,7 @@ return array(
 	/*
 	|--------------------------------------------------------------------------
 	| PDO Fetch Style
-	|--------------------------------------------------------------------------
+|--------------------------------------------------------------------------
 	|
 	| By default, database results will be returned as instances of the PHP
 	| stdClass object; however, you may desire to retrieve records in an

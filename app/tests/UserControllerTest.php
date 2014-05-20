@@ -1,5 +1,7 @@
 <?php 
 
+use Zizaco\FactoryMuff\Facade\FactoryMuff;
+
 /**
  * @covers UserController
  */
@@ -39,6 +41,7 @@ class UserControllerTest extends TestCase
 
   function getPostRedirectPathes()
   {
+
     return array(
       array('make_search', 'login'),
       array('register_user', '', array('name'=>'test', 'email'=>'test@test.de', 'password'=>'123456q', 'password_confirmation'=>'123456q')),
@@ -47,7 +50,6 @@ class UserControllerTest extends TestCase
       array('register_user', 'register', array('name'=>'test', 'email'=>'testest.de', 'password'=>'123456q', 'password_confirmation'=>'123456q')),
       array('register_user', 'register', array('name'=>'test', 'email'=>'test@est.de', 'password'=>'123456', 'password_confirmation'=>'123456q')),
       array('register_user', 'register', array()),
-      array('login_user', '', array('email'=>'test@test.de', 'password'=>'123456q')),
       array('login_user', 'login', array('email'=>'testtest.de')),
 
     );
@@ -65,6 +67,17 @@ class UserControllerTest extends TestCase
      $this->assertRedirectedTo('login');
      $this->assertFalse(Auth::check());
   
+  }
+
+  /**
+   * @covers loginUser
+   */
+  function testLogin()
+  {
+    FactoryMuff::create('User', array('name'=>'grandma', 'email'=>'der@grand.ma', 'password'=>Hash::make('password')));
+    $this->client->request('POST', '/login_user', array('email'=>'der@grand.ma', 'password'=>'password'));
+    $this->assertRedirectedTo('');
+    $this->assertTrue(Auth::check());  
   }
 
 }

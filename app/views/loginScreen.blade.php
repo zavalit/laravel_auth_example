@@ -5,9 +5,6 @@
 @endif
 
 <h1> Login Screen </h1>
-@if(isset($message))
-<div class='message'>{{ $message }}</div>
-@endif
 
 {{ Form::open(array('url'=>'/login_user')) }}
 <ul>
