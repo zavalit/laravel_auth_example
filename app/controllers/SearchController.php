@@ -13,7 +13,7 @@ class SearchController extends BaseController
      $searcher = new Searcher($stringToSearch);
      $users = $searcher->findUsers();
      Session::put('users', $users);
-     return Redirect::route('search_results'); 
+     return Redirect::to('results'); 
   }
 
   public function showResultsScreen()
