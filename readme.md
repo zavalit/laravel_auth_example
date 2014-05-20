@@ -30,12 +30,13 @@ php composer.phar install
 
 ```
 
-# Unit/Functional Testing
+# Run  Tests
 ```sh 
-
+#phpunit 3.7
 phpunit
 
 ```
+
 
 
 
