@@ -1,23 +1,50 @@
 <?php 
 
+/**
+ * UserController
+ *
+ * Coordinates user login/register routine
+ */
+
 class UserController extends BaseController
 {
+
+  /**
+   * Instatiates Controller that let all post Requests be csrf secure
+   */
 
   public function __construct()
   {
      $this->beforeFilter('csrf', array('on'=>'post'));
   }
+  
+  /**
+   * Returns Home Screen
+   *
+   * @return View
+   */
 
   public function showHomeScreen()
   {
       return View::make('homeScreen'); 
   }
 
+  /**
+   * Returns Register Screen
+   *
+   * @return View
+   */
+ 
   public function showRegisterScreen()
   {
       return View::make('registerScreen');
   }
 
+  /**
+   * Returns redirect based on whether a registration was successed
+   *
+   * @return Redirect
+   */
   public function registerUser()
   {
     $validator = Validator::make(Input::all(), User::$rules);
@@ -40,11 +67,23 @@ class UserController extends BaseController
     }
   }
 
+  /**
+   * Returns Login Screen
+   *
+   * @return View
+   */
+
   public function showLoginScreen()
   {
       return View::make('loginScreen');
   }
 
+  /**
+   * Returns Redirect based on whether a user was logged in
+   *
+   * @return Redirect
+   */
+  
   public function loginUser()
   {
     $validator = Validator::make(Input::all(), array(
@@ -75,10 +114,17 @@ class UserController extends BaseController
 
   }
 
+  /**
+   * Returns Redirect to home page after logout
+   *
+   * @return Redirect
+   */
   public function logoutUser()
   {
-      Auth::logout();
-      return Redirect::to('login')->with('message', 'Your are successfuly logged out');
+    if(Auth::check()){ 
+     Auth::logout();
+    }  
+    return Redirect::to('login')->with('message', 'Your are successfuly logged out');
   }
 
 }

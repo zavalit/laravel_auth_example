@@ -1,7 +1,16 @@
-<?php 
+<?php
+
+/**
+ * Coordinates searching routine
+ */
 
 class SearchController extends BaseController
 {
+   /**
+     * Makes redirect based on Auth state.
+     *
+     * @return Redirect
+    */
 
   public function makeSearch()
   {
@@ -16,6 +25,11 @@ class SearchController extends BaseController
      return Redirect::to('results'); 
   }
 
+   /**
+     * Returns search results stored in a Session.
+     *
+     * @return View
+    */
   public function showResultsScreen()
   {
     $users = array();
